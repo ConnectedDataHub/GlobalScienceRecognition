@@ -42,12 +42,12 @@ folders are found one level up. They can also be run from the main folder (the f
 contains "data" and "Source Data") with this code folder on the Python path (for vizutils.py and
 sourcedatautils.py).
 
-Regenerated figures are saved in ../figures (the figures of the submitted paper are in
-../paper/Figures).
+Regenerated figures are saved in ../figures.
 
 Paths to set at the top of the notebooks:
-  path2openalex     location of the OpenAlex database (pySciSci format)
-  path2countrydata  location of the processed country-level data (notebooks 1, 2 and 8)
+  path2openalex     location of the OpenAlex database (pySciSci format; notebooks 1 and 2, and the
+                    null-model cells 3 and 5 of notebook 8)
+  path2countrydata  location of the processed country-level data (notebooks 1 and 2)
   path2sourcedata   location of the Source Data folder ("Source Data"); the data folder (path2data) is
                     next to it
 
@@ -78,8 +78,9 @@ countrycites_yearly.csv.gz                        yearly citations between count
 citation_network_2017.csv.gz                      citations from each citing country to the 2017 publications of each
                                                   cited country, original and with the cited country permuted
                                                   (Supplementary Figs. S11B and S13; data_prep/make_data_FigS13_S18.py)
-oa_countrycites_randcountry2017_auc.csv.gz        national citation preference of the random country null model for
-                                                  the 2017 publications (Supplementary Fig. S18; same script)
+random_country_citation_network2017.csv.gz        citations of the random country null model, with the country of each
+                                                  publication permuted within its year (Supplementary Fig. S18;
+                                                  notebook 8)
 pub2ref2017.csv.gz, oa_pub2country.csv.gz         publication-level inputs of data_prep/make_data_FigS13_S18.py: the
                                                   citations to the 2017 publications within 5 years (without author
                                                   self-citations and same-affiliation citations) and the countries of
@@ -122,12 +123,16 @@ cited country and year, and the journal bootstrap version.
 
 Input:
   oa_countrycites_nosameorg.csv.gz         (output of notebook 1)
-  pub2journal.csv.gz                       (OpenAlex)
+  oa_countrycites_nosameorg_journal.csv.gz (output of notebook 1)
 
 Output:
   oa_countrycites_nosameorg_auc.csv.gz     national citation preferences (provided in
                                            ../data)
-  nationalcitation_bootstrap_u100.csv.gz   journal bootstrap citation preferences (Fig. 4)
+  nationalcitation_bootstrap_u100_{year}.csv.gz  the 100 journal bootstrap AUCs of each country pair,
+                                           one file per year (1990-2017)
+  oa_countrycites_nosameorg_journalbootstrap_auc.csv.gz  journal bootstrap citation preferences: mean AUC,
+                                           STD, Z-score, P value and significance (Holm-Sidak, alpha = 0.01
+                                           within each year) over the 100 samples (Fig. 4; provided in ../data)
 
 
 3_GlobalCitationNetwork_Fig1.py
@@ -213,21 +218,22 @@ Builds two null models (random country assignment and random citation graph) and
 citation preferences with the empirical network.
 
 The null models are built from the raw OpenAlex database (cells 4 and 6). The comparison with the
-empirical network (from "Compare the resulting networks") only needs the data folder: the random citation
-null (oa_countrycites_noselfauthoraff_randgraph_auc.csv.gz) and the random country null for the 2017
-publications (oa_countrycites_randcountry2017_auc.csv.gz, from data_prep/make_data_FigS13_S18.py).
+empirical network (from "Compare the resulting networks") only needs the data folder: the citation
+preferences of the random citation null (oa_countrycites_noselfauthoraff_randgraph_auc.csv.gz), and the
+citations of the random country null (random_country_citation_network2017.csv.gz), from which the notebook
+computes the citation preferences of the random country null.
 
 Input:
   OpenAlex database: pub2doctype, pub2year, affiliations, publication-author-affiliation, pub2ref
   oa_pub2country.csv.gz                    (output of notebook 1)
   ../data/oa_countrycites_nosameorg_auc.csv.gz
   ../data/oa_countrycites_noselfauthoraff_randgraph_auc.csv.gz  (citation preferences of the random citation null)
-  ../data/oa_countrycites_randcountry2017_auc.csv.gz           (citation preferences of the random country null)
+  ../data/random_country_citation_network2017.csv.gz           (citations of the random country null)
 
 Output:
-  random_country_citation_network2017.csv.gz            random country null model citations
+  ../data/random_country_citation_network2017.csv.gz    random country null model citations (cell 3)
   oa_countrycites_noselfauthoraff_randgraph.csv.gz      random citation null model citations
-  ../figures/FigSI_random_network_auc_dist.pdf          Supplementary Fig. S18
+  ../figures/FigSI_random_network_auc_dist2.pdf         Supplementary Fig. S18
   ../Source Data/SourceData_FigS18.xlsx                 Source Data for Supplementary Fig. S18 (last cell)
   ../Source Data/README.txt
 
@@ -386,6 +392,22 @@ Helper functions imported by scripts 3 and 4, notebooks 5, 6, 7, 9 to 22, and da
                                       sheet) and update ../Source Data/README.txt, which describes
                                       all Source Data files
 
+
+data_prep/
+----------
+make_data_FigS13_S18.py
+  Aggregates the citations to the 2017 publications to country pairs (run in a Python environment with pySciSci).
+  Input:  ../data/pub2ref2017.csv.gz, ../data/oa_pub2country.csv.gz (publication-level)
+  Output: ../data/citation_network_2017.csv.gz (Supplementary Fig. S13; the cited country is permuted with a fixed
+          random seed for the randomized network), and oa_countrycites_randcountry2017_auc.csv.gz (citation
+          preferences of a random country null for the 2017 publications against the rest of the world; not used:
+          Supplementary Fig. S18 is computed in notebook 8 from random_country_citation_network2017.csv.gz)
+
+make_data_FigS11_S12.py
+  Aggregates the publication-level data to country pairs (run in a Python environment with pySciSci).
+  Input:  coauthor2017.csv.gz and oa_countrycites_noselfauthoraff.csv.gz (publication-level, not included
+          because of their size)
+  Output: ../data/coauthorship_2017.csv.gz, ../data/countries_2017.csv.gz, ../data/countrycites_yearly.csv.gz
 
 
 Software
