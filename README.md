@@ -4,11 +4,6 @@ Code and processed data for the paper
 
 > Alexander J. Gates, Jianjian Gao and Indraneel Mane. *Recognition fragmentation and the diffusion of ideas in global science.*
 
-For every pair of countries and every year from 1990 to 2017, the paper measures how much one country's
-publications cite another country's publications more or less than expected (the national citation preference,
-an AUC). From these measures it builds signed networks of over- and under-recognition. It then relates the
-structure of these networks to the spread of scientific ideas between countries.
-
 ## Repository structure
 
 ```
