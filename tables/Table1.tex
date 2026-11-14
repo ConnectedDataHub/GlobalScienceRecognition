@@ -1,0 +1,62 @@
+\begin{table}[H] \centering 
+    \small
+  \caption{\textbf{International diffusion of scientific ideas.}
+Model coefficients for a series of weighted logistic regression models to predict the probability of ideas diffusing from an origin country to a destination country. The dependent variable is the observed fraction of ideas diffused from the origin country to the destination country, and the weights correspond to the total number of ideas originating from the origin country. Model coefficients (log-odds) are reported with 95\% confidence intervals in parentheses, followed by the standard error (S.E.) and the exact $p$-value. McFadden's pseudo-$R^2$ is reported. $p$-values are from two-sided Wald $z$-tests of each coefficient, without adjustment for multiple comparisons. The F statistic is a Wald test that all coefficients except the intercept are zero. Source data are provided as a Source Data file.} 
+\label{table:idea_diffusion}
+\begin{adjustbox}{max width=\textwidth} 
+\begin{tabular}{lllll}\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+\multicolumn{5}{c}{Dependent variable: Fraction of ideas diffused from origin to destination country.} \\[0.8ex]\hline 
+ & \multicolumn{4}{c}{Model}  \\ \cline{2-5} \\[-1.8ex] & (1)& (2)& (3)& (4) \\ \hline \\[-1.8ex] 
+Intercept & $-1.215$ & $-1.327$ & $-1.348$ & $-1.354$\\ 
+ & $(-1.229, -1.201)$ & $(-1.343, -1.312)$ & $(-1.363, -1.332)$ & $(-1.369, -1.338)$\\ 
+ & S.E.\,$0.007$; ${p < 0.001}$ & S.E.\,$0.008$; ${p < 0.001}$ & S.E.\,$0.008$; ${p < 0.001}$ & S.E.\,$0.008$; ${p < 0.001}$\\ [0.8ex]  
+log GDP per capita origin & $0.347$ & $0.300$ & $0.291$ & $0.286$\\ 
+ & $(0.339, 0.354)$ & $(0.292, 0.307)$ & $(0.284, 0.299)$ & $(0.277, 0.295)$\\ 
+ & S.E.\,$0.004$; ${p < 0.001}$ & S.E.\,$0.004$; ${p < 0.001}$ & S.E.\,$0.004$; ${p < 0.001}$ & S.E.\,$0.005$; ${p < 0.001}$\\ [0.8ex]  
+log GDP per capita destination & $0.186$ & $0.111$ & $0.099$ & $0.085$\\ 
+ & $(0.182, 0.190)$ & $(0.106, 0.115)$ & $(0.094, 0.103)$ & $(0.080, 0.090)$\\ 
+ & S.E.\,$0.002$; ${p < 0.001}$ & S.E.\,$0.002$; ${p < 0.001}$ & S.E.\,$0.002$; ${p < 0.001}$ & S.E.\,$0.002$; ${p < 0.001}$\\ [0.8ex]  
+log Number of publications origin & $-0.356$ & $-0.331$ & $-0.300$ & $-0.303$\\ 
+ & $(-0.365, -0.347)$ & $(-0.340, -0.321)$ & $(-0.310, -0.289)$ & $(-0.314, -0.293)$\\ 
+ & S.E.\,$0.004$; ${p < 0.001}$ & S.E.\,$0.005$; ${p < 0.001}$ & S.E.\,$0.005$; ${p < 0.001}$ & S.E.\,$0.005$; ${p < 0.001}$\\ [0.8ex]  
+log Number of publications destination & $1.657$ & $1.596$ & $1.580$ & $1.562$\\ 
+ & $(1.653, 1.662)$ & $(1.592, 1.601)$ & $(1.574, 1.585)$ & $(1.556, 1.568)$\\ 
+ & S.E.\,$0.002$; ${p < 0.001}$ & S.E.\,$0.002$; ${p < 0.001}$ & S.E.\,$0.003$; ${p < 0.001}$ & S.E.\,$0.003$; ${p < 0.001}$\\ [0.8ex]  
+Fraction of citations to origin & $0.064$ & $0.060$ & $0.053$ & $0.055$\\ 
+ & $(0.063, 0.066)$ & $(0.058, 0.062)$ & $(0.051, 0.055)$ & $(0.053, 0.057)$\\ 
+ & S.E.\,$0.001$; ${p < 0.001}$ & S.E.\,$0.001$; ${p < 0.001}$ & S.E.\,$0.001$; ${p < 0.001}$ & S.E.\,$0.001$; ${p < 0.001}$\\ [0.8ex]  
+Topic distance &  & $-0.346$ & $-0.343$ & $-0.331$\\ 
+ &  & $(-0.351, -0.342)$ & $(-0.348, -0.338)$ & $(-0.336, -0.326)$\\ 
+ &  & S.E.\,$0.002$; ${p < 0.001}$ & S.E.\,$0.002$; ${p < 0.001}$ & S.E.\,$0.002$; ${p < 0.001}$\\ [0.8ex]  
+log Physical distance &  & $-0.005$ & $0.013$ & $0.015$\\ 
+ &  & $(-0.009, -0.001)$ & $(0.009, 0.017)$ & $(0.011, 0.019)$\\ 
+ &  & S.E.\,$0.002$; ${p = 0.010}$ & S.E.\,$0.002$; ${p < 0.001}$ & S.E.\,$0.002$; ${p < 0.001}$\\ [0.8ex]  
+Common language &  & $0.044$ & $0.025$ & $0.000$\\ 
+ &  & $(0.034, 0.054)$ & $(0.015, 0.035)$ & $(-0.010, 0.010)$\\ 
+ &  & S.E.\,$0.005$; ${p < 0.001}$ & S.E.\,$0.005$; ${p < 0.001}$ & S.E.\,$0.005$; ${p = 0.999}$\\ [0.8ex]  
+Positive citation preference &  &  & $0.167$ & $0.132$\\ 
+ &  &  & $(0.154, 0.179)$ & $(0.119, 0.144)$\\ 
+ &  &  & S.E.\,$0.006$; ${p < 0.001}$ & S.E.\,$0.006$; ${p < 0.001}$\\ [0.8ex]  
+Negative citation preference &  &  & $-0.033$ & $-0.040$\\ 
+ &  &  & $(-0.041, -0.024)$ & $(-0.048, -0.031)$\\ 
+ &  &  & S.E.\,$0.004$; ${p < 0.001}$ & S.E.\,$0.005$; ${p < 0.001}$\\ [0.8ex]  
+Same network community &  &  &  & $0.080$\\ 
+ &  &  &  & $(0.069, 0.091)$\\ 
+ &  &  &  & S.E.\,$0.006$; ${p < 0.001}$\\ [0.8ex]  
+Network centrality origin &  &  &  & $0.011$\\ 
+ &  &  &  & $(0.007, 0.015)$\\ 
+ &  &  &  & S.E.\,$0.002$; ${p < 0.001}$\\ [0.8ex]  
+Network centrality destination &  &  &  & $0.043$\\ 
+ &  &  &  & $(0.039, 0.048)$\\ 
+ &  &  &  & S.E.\,$0.002$; ${p < 0.001}$\\ [0.8ex]  
+\hline 
+\hline \\[-1.8ex] 
+Observations & 13837 & 12032 & 12032 & 12032 \\ 
+pseudo-$R^2$ & 0.4109 & 0.4242 & 0.4246 & 0.4248 \\ 
+Log Likelihood & $-877425.86$ & $-799585.70$ & $-799065.57$ & $-798745.22$ \\ 
+F statistic & $145403.78$ (d.f. $= 5$; ${p < 0.001}$) & $84757.20$ (d.f. $= 8$; ${p < 0.001}$) & $67983.38$ (d.f. $= 10$; ${p < 0.001}$) & $52382.95$ (d.f. $= 13$; ${p < 0.001}$) \\ 
+\hline 
+\end{tabular}
+\end{adjustbox}
+\end{table}
