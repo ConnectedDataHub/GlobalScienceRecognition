@@ -220,7 +220,8 @@ __marimo__/
 .streamlit/secrets.toml
 
 # Data
-/data/
+/data/*
+!/data/README.md
 
 # macOS
 .DS_Store
