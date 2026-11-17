@@ -7,8 +7,8 @@ database and the publication-level files are not included because they are too l
 
 - Countries are two-letter ISO 3166-1 alpha-2 codes.
 - All `.csv.gz` files are gzip-compressed CSV files and can be read directly with `pandas.read_csv`.
-- These data files are not tracked by git (see [`../.gitignore`](../.gitignore)). Only this README is in
-  the repository.
+- The data files are not tracked by git (see [`../.gitignore`](../.gitignore)). Download them from Zenodo,
+  [doi:10.5281/zenodo.24322547](https://doi.org/10.5281/zenodo.24322547), into this folder.
 - "Used by" lists the numbers of the notebooks and scripts in `code/`.
 
 ## Overview

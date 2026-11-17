@@ -1,6 +1,7 @@
 # Recognition fragmentation and the diffusion of ideas in global science
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24322474.svg)](https://doi.org/10.5281/zenodo.24322474)
+[![Code DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24322474.svg)](https://doi.org/10.5281/zenodo.24322474)
+[![Data DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24322547.svg)](https://doi.org/10.5281/zenodo.24322547)
 
 Code and processed data for the paper
 
@@ -73,13 +74,17 @@ The primary data source is [OpenAlex](https://openalex.org/). The country covari
 - the CEPII GeoDist dataset (geographic distance and continent)
 - Nicolas et al. (bilateral Science and Technology Agreements)
 
-`data/` holds the processed country-level files derived from these sources. The publication-level OpenAlex data
-are not included because of their size.
+The processed country-level files derived from these sources are archived on Zenodo:
+[doi:10.5281/zenodo.24322547](https://doi.org/10.5281/zenodo.24322547). Download them into `data/` to run the code;
+[`data/README.md`](data/README.md) describes each file. The publication-level OpenAlex data are not included
+because of their size.
 
 ## Citation
 
-This repository is archived on Zenodo (version 1.0.0): [doi:10.5281/zenodo.24322474](https://doi.org/10.5281/zenodo.24322474).
-If you use the code, please cite the paper and this archive.
+- Code (version 1.0.0): [doi:10.5281/zenodo.24322474](https://doi.org/10.5281/zenodo.24322474)
+- Data: [doi:10.5281/zenodo.24322547](https://doi.org/10.5281/zenodo.24322547)
+
+If you use the code or data, please cite the paper and these archives.
 
 ## Contact
 
