@@ -352,7 +352,8 @@ def logistic_coefficient_plot(df1, df2, colours, Model_features, ax=None):
     return ax
 
 
-def logistic_odds_ratio_plot(df1, df2, colours, ax=None):
+def logistic_odds_ratio_plot(df1, df2, colours, ax=None, labelsize=9, xlabelsize=10, ms=4, lw=None, legendsize=10):
+    # labelsize, xlabelsize, ms (marker size), lw (line width) and legendsize set the sizes for print-size figures
     
     if ax is None:
         fig, ax = plt.subplots(figsize=(5,12))
@@ -383,11 +384,11 @@ def logistic_odds_ratio_plot(df1, df2, colours, ax=None):
     
     y=df1.index.to_list()
     
-    ax.errorbar(x1s, y1s, xerr=xerror1s, fmt='o',color=colours[1],label="Positive recognition",ms=4)
-    ax.errorbar(x2s, y2s, xerr=xerror2s, fmt='o',color=colours[2],label="Negative recognition",ms=4)
+    ax.errorbar(x1s, y1s, xerr=xerror1s, fmt='o',color=colours[1],label="Positive recognition",ms=ms,elinewidth=lw)
+    ax.errorbar(x2s, y2s, xerr=xerror2s, fmt='o',color=colours[2],label="Negative recognition",ms=ms,elinewidth=lw)
     
-    ax.errorbar(x1ns, y1ns, xerr=xerror1ns, fmt='o',color=colours[1], mfc='w', mew=1,label="Positive recognition(not sig)", ms=4)
-    ax.errorbar(x2ns, y2ns, xerr=xerror2ns, fmt='o',color=colours[2], mfc='w', mew=1,label="Negative recognition(not sig)", ms=4)
+    ax.errorbar(x1ns, y1ns, xerr=xerror1ns, fmt='o',color=colours[1], mfc='w', mew=1 if lw is None else lw,label="Positive recognition(not sig)", ms=ms,elinewidth=lw)
+    ax.errorbar(x2ns, y2ns, xerr=xerror2ns, fmt='o',color=colours[2], mfc='w', mew=1 if lw is None else lw,label="Negative recognition(not sig)", ms=ms,elinewidth=lw)
 
     ax.invert_yaxis()
     ax.set_xscale('log', base=10)
@@ -399,7 +400,7 @@ def logistic_odds_ratio_plot(df1, df2, colours, ax=None):
     ax.xaxis.set_major_formatter(formatter)
 
 
-    ax.axvline(x=1, color=colours[0],  linestyle='--',ymin=0,ymax=0.98)
+    ax.axvline(x=1, color=colours[0],  linestyle='--',ymin=0,ymax=0.98, lw=lw)
 
     sns.despine(top=True, right=True, left=True, bottom=False)
 
@@ -407,10 +408,10 @@ def logistic_odds_ratio_plot(df1, df2, colours, ax=None):
     ax.set_yticks(y)
     ax.set_yticklabels(ylabels)
     ax.tick_params(axis="both", which="both", bottom=True, top=False,    
-                    labelbottom=True, left=False, right=False, labelleft=True,labelsize=9) 
+                    labelbottom=True, left=False, right=False, labelleft=True,labelsize=labelsize) 
 
     ax.set_ylim([max(y)+0.5, min(y)-0.5])
-    ax.set_xlabel("Odds ratio",fontsize=10)
+    ax.set_xlabel("Odds ratio",fontsize=xlabelsize)
 
     hlines=y
     counter=0
@@ -421,7 +422,7 @@ def logistic_odds_ratio_plot(df1, df2, colours, ax=None):
 
 
     plt.legend(bbox_to_anchor=(-0.3, 0.55, 0.5, 0.5),
-        fontsize=10,
+        fontsize=legendsize,
                loc="upper left",
                ncol=2,
                markerscale=1,

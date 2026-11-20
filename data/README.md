@@ -28,6 +28,7 @@ database and the publication-level files are not included because they are too l
 | `countrycites_yearly.csv.gz` | 1.8 MB | Yearly citations between countries | 14 |
 | `citation_network_2017.csv.gz` | 168 KB | Country citations to the 2017 publications, original and randomized | 14, 22 |
 | `random_country_citation_network2017.csv.gz` | 455 MB | Citations of the random country null model | 8 |
+| `fig2_network_layout.csv` | 2 KB | Node positions and colours of the Fig. 2A network | 6 |
 
 ## National citation preferences
 
@@ -153,6 +154,22 @@ An empty country means the publication has no country.
 
 Columns: `CitingPublicationId`, `CitingYear`, `CitedPublicationId`, `CitedYear`, `CitingCountry`,
 `CitedCountry`
+
+## Network layout
+
+### `fig2_network_layout.csv`
+
+The node layout of the Fig. 2A network (the positive citation preference network N1, 93 countries), used
+by notebook 6 to draw the journal bootstrap network of Fig. 4B with the same layout. The layout was made
+in Gephi and the positions were taken from the vector Fig. 2A; they equal the node positions of Gephi's
+export of that network up to scale and offset. Countries of the journal bootstrap network that are not in
+Fig. 2A are not drawn.
+
+| Column | Description |
+|---|---|
+| `Country` | country |
+| `x`, `y` | node position in points (y downwards), as in Fig. 2A |
+| `Color` | community colour of the node in Fig. 2A |
 
 ## Files referenced by the code but not in this folder
 

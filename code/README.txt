@@ -10,6 +10,7 @@ Run order
 2_GlobalCitationNetwork_citationpreferences.ipynb               (needs outputs of 1)
 3_GlobalCitationNetwork_Fig1.py                                 Fig. 1
 4_GlobalCitationNetwork_Fig2.py                                 Fig. 2
+make_Fig2_pdf.py                                                PDF of Fig. 2 (from ../figures/Fig2_nationalnetworks.pptx)
 5_GlobalCitationNetwork_Fig3.ipynb                              Fig. 3
 6_GlobalCitationNetwork_Fig4_TableS10.ipynb                     Fig. 4 and Supplementary Table S10
 7_GlobalCitationNetwork_Table1_ideadiffusion.ipynb              Table 1
@@ -46,7 +47,7 @@ Regenerated figures are saved in ../figures.
 
 Paths to set at the top of the notebooks:
   path2openalex     location of the OpenAlex database (pySciSci format; notebooks 1 and 2, and the
-                    null-model cells 4 and 6 of notebook 8)
+                    null-model cells 3 and 5 of notebook 8)
   path2countrydata  location of the processed country-level data (notebooks 1 and 2)
   path2sourcedata   location of the Source Data folder ("Source Data"); the data folder (path2data) is
                     next to it
@@ -54,8 +55,7 @@ Paths to set at the top of the notebooks:
 
 Input data (../data)
 --------------------
-The processed data used by the analyses (outputs of notebooks 1, 2 and 8, or aggregated from the
-publication-level data, which is not included). See ../data/README.md for the columns of each file:
+The processed data used by the analyses (outputs of notebooks 1 and 2, and of data_prep/):
 
 oa_countrycites_nosameorg_auc.csv.gz              national citation preference (AUC) for each citing country,
                                                   cited country and year; output of notebook 2
@@ -68,25 +68,29 @@ oa_countrycites_nosameorg_journalbootstrap_auc.csv.gz  journal bootstrap nationa
 oa_countrycites_noselfauthoraff_noselfcite_auc.csv.gz  national citation preference without country
                                                   self-citations (Supplementary Table S11)
 oa_countrycites_noselfauthoraff_randgraph_auc.csv.gz   national citation preference of the random citation null
-                                                  model (Supplementary Fig. S18); output of notebook 8
+                                                  model (Supplementary Fig. S18); computed on the cluster
 diffusion_panel_data_1990_2017.csv.gz             country-pair panel used in the idea diffusion regression
 Chengetal_idealist.csv.gz                         list of scientific ideas (n-grams) used to track idea diffusion
 oa_cocountry_collaboration_network.csv.gz         yearly country collaboration network
-coauthorship_2017.csv.gz                          2017 country co-authorship network
-countries_2017.csv.gz                             the countries of the 2017 co-authorship network
+coauthorship_2017.csv.gz                          2017 country co-authorship network (data_prep/make_data_FigS11_S12.py)
+countries_2017.csv.gz                             the countries of the 2017 co-authorship network (same script)
 countrycites_yearly.csv.gz                        yearly citations between countries, without self-citations and
-                                                  same-affiliation citations
+                                                  same-affiliation citations (same script)
 citation_network_2017.csv.gz                      citations from each citing country to the 2017 publications of each
                                                   cited country, original and with the cited country permuted
-                                                  (Supplementary Figs. S11B and S13)
+                                                  (Supplementary Figs. S11B and S13; data_prep/make_data_FigS13_S18.py)
+fig2_network_layout.csv                           node positions (points, y downwards) and community colours of the
+                                                  Fig. 2A network, used for the network of Fig. 4B. The layout was
+                                                  made in Gephi (positive network N1, 93 countries) and taken from
+                                                  the vector Fig. 2A; it equals the node positions of Gephi's export
+                                                  of that network up to scale and offset
 random_country_citation_network2017.csv.gz        citations of the random country null model, with the country of each
                                                   publication permuted within its year (Supplementary Fig. S18;
                                                   notebook 8)
-pub2ref2017.csv.gz, oa_pub2country.csv.gz         publication-level data from which citation_network_2017.csv.gz was
-                                                  built: the citations to the 2017 publications within 5 years
-                                                  (without author self-citations and same-affiliation citations) and
-                                                  the countries of each publication; too large for the repository and
-                                                  not included
+pub2ref2017.csv.gz, oa_pub2country.csv.gz         publication-level inputs of data_prep/make_data_FigS13_S18.py: the
+                                                  citations to the 2017 publications within 5 years (without author
+                                                  self-citations and same-affiliation citations) and the countries of
+                                                  each publication; too large for the repository
 
 
 1_GlobalCitationNetwork_dataprep.ipynb
@@ -155,6 +159,21 @@ Output: ../Source Data/SourceData_2_Fig2.xlsx
         ../Source Data/README.txt
 
 
+make_Fig2_pdf.py
+----------------
+Makes the PDF of Fig. 2 from the PowerPoint layout. The network pictures of Fig. 2 were drawn in Gephi
+and placed, with the panel letters and the in-degree legend, in ../figures/Fig2_nationalnetworks.pptx.
+PowerPoint exports those pictures as low-resolution bitmaps, so this script builds the PDF directly: the
+Gephi network PDFs inside the slide are placed with the positions and crops of the slide, and all text
+(country labels, legend and panel letters) is drawn in embedded Arial. The result is fully vector.
+Run from this folder with:  python make_Fig2_pdf.py
+
+Input:  ../figures/Fig2_nationalnetworks.pptx
+Output: ../figures/Fig2_nationalnetworks.pdf
+Needs PyMuPDF (pip install pymupdf) and the Arial fonts (set ARIAL_FONT and ARIAL_BOLD_FONT to the .ttf
+files if they are not in the usual system font folders).
+
+
 Notebooks 5 to 10
 -----------------
 Each notebook has the shared set-up (imports, significance test, cumulative network) and the cells its
@@ -175,7 +194,9 @@ OpenAlex database.
 6_GlobalCitationNetwork_Fig4_TableS10.ipynb
   Input:  ../data/oa_countrycites_nosameorg_journalbootstrap_auc.csv.gz,
           ../data/link_prediction_panel_data_1990_2017.csv.gz, vizutils.py,
-          ../paper/Figures/Fig4B_bootstrapnetwork.png (the network picture of B)
+          ../data/fig2_network_layout.csv (the Gephi node positions and community colours of Fig. 2A,
+          used to draw the network of B with the same layout; countries of the journal bootstrap
+          network that are not in Fig. 2A are not drawn)
   Output: Fig. 4: A) odds ratios of the multinomial logit model of the journal bootstrap citation
           preferences (1990-2017; continuous variables standardized once over the panel,
           as in Fig. 3), B) the journal bootstrap network (positive edges); the six models are those of
@@ -233,9 +254,8 @@ Input:
   ../data/random_country_citation_network2017.csv.gz           (citations of the random country null)
 
 Output:
-  ../data/random_country_citation_network2017.csv.gz    random country null model citations (cell 4)
-  ../data/oa_countrycites_noselfauthoraff_randgraph_auc.csv.gz  citation preferences of the random citation
-                                                        null model (cell 6)
+  ../data/random_country_citation_network2017.csv.gz    random country null model citations (cell 3)
+  oa_countrycites_noselfauthoraff_randgraph.csv.gz      random citation null model citations
   ../figures/FigSI_random_network_auc_dist2.pdf         Supplementary Fig. S18
   ../Source Data/SourceData_FigS18.xlsx                 Source Data for Supplementary Fig. S18 (last cell)
   ../Source Data/README.txt
@@ -269,7 +289,7 @@ They read their input from ../data and save the figures in ../figures.
           citation_network_2017.csv.gz
   Output: Supplementary Fig. S11A and S11B edge lists (../figures/networks/normalized_coauthorship_2017_025.csv
           and normalized_citation_2017_03.csv, drawn in Gephi), Fig. S12 (../figures/FigSI_networkentropy.pdf)
-  The S11B edge list is computed from ../data/citation_network_2017.csv.gz.
+  The S11B edge list is computed from ../data/citation_network_2017.csv.gz (data_prep/make_data_FigS13_S18.py).
 
 15_GlobalCitationNetwork_FigS14_vifdiffusion.ipynb
   Input:  ../data/diffusion_panel_data_1990_2017.csv.gz
@@ -369,9 +389,8 @@ The last cell of each Supplementary Figure notebook writes the plotted values to
   15_GlobalCitationNetwork_FigS14_vifdiffusion  SourceData_FigS14.xlsx
   16_GlobalCitationNetwork_FigS15_S17         SourceData_FigS15.xlsx, SourceData_FigS17.xlsx
 
-Supplementary Figs. S11B and S13 are computed from ../data/citation_network_2017.csv.gz, which is built from the
-publication-level citation data (not included). Supplementary Fig. S18 is computed from the outputs of the null
-models in ../data (built by notebook 8 from the raw OpenAlex database).
+Supplementary Fig. S11B and S13 need the publication-level citation data, and Supplementary Fig. S18 needs the
+outputs of the null models computed on the cluster (hpc_code in the analysis folder), which are not included.
 
 
 vizutils.py
@@ -386,7 +405,7 @@ Helper functions imported by notebooks 5, 6, 9, 17 and 18:
 
 sourcedatautils.py
 ------------------
-Helper functions imported by scripts 3 and 4 and notebooks 5, 6, 7 and 9 to 22:
+Helper functions imported by scripts 3 and 4, notebooks 5, 6, 7, 9 to 22, and data_prep/:
   load_country_auc, load_net_auc      load the citation preferences from ../data and apply the
                                       significance test (N >= 50, Holm-Sidak correction with
                                       alpha = 0.01 within each year)
@@ -395,6 +414,23 @@ Helper functions imported by scripts 3 and 4 and notebooks 5, 6, 7 and 9 to 22:
   write_source_data                   write a Source Data Excel file (README sheet and one table per
                                       sheet) and update ../Source Data/README.txt, which describes
                                       all Source Data files
+
+
+data_prep/
+----------
+make_data_FigS13_S18.py
+  Aggregates the citations to the 2017 publications to country pairs (run in a Python environment with pySciSci).
+  Input:  ../data/pub2ref2017.csv.gz, ../data/oa_pub2country.csv.gz (publication-level)
+  Output: ../data/citation_network_2017.csv.gz (Supplementary Fig. S13; the cited country is permuted with a fixed
+          random seed for the randomized network), and oa_countrycites_randcountry2017_auc.csv.gz (citation
+          preferences of a random country null for the 2017 publications against the rest of the world; not used:
+          Supplementary Fig. S18 is computed in notebook 8 from random_country_citation_network2017.csv.gz)
+
+make_data_FigS11_S12.py
+  Aggregates the publication-level data to country pairs (run in a Python environment with pySciSci).
+  Input:  coauthor2017.csv.gz and oa_countrycites_noselfauthoraff.csv.gz (publication-level, not included
+          because of their size)
+  Output: ../data/coauthorship_2017.csv.gz, ../data/countries_2017.csv.gz, ../data/countrycites_yearly.csv.gz
 
 
 Software
